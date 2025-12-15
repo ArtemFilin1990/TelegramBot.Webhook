@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  bot:
+    build: .
+    container_name: telegram_egrul_bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    volumes:
+      - ./data:/app/data
+    networks:
+      - bot_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: telegram_bot_redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - bot_network
+    ports:
+      - "6379:6379"
+
+volumes:
+  redis_data:
+
+networks:
+  bot_network:
+    driver: bridge
