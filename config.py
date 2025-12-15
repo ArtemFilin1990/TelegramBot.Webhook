@@ -10,26 +10,20 @@ class Config:
     
     # Telegram
     TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', '')
+    TELEGRAM_WEBHOOK_URL = os.getenv('TELEGRAM_WEBHOOK_URL', '')
     
     # OpenAI
     OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', '')
+    OPENAI_ASSISTANT_ID = os.getenv('OPENAI_ASSISTANT_ID', '')
+    OPENAI_VECTOR_STORE_ID = os.getenv('OPENAI_VECTOR_STORE_ID', '')
     
-    # DaData
+    # MCP DaData
+    MCP_DADATA_URL = os.getenv('MCP_DADATA_URL', 'https://mcp.dadata.ru/mcp')
     DADATA_API_KEY = os.getenv('DADATA_API_KEY', '')
     DADATA_SECRET_KEY = os.getenv('DADATA_SECRET_KEY', '')
     
-    # Redis
-    REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
-    REDIS_PORT = int(os.getenv('REDIS_PORT', 6379))
-    REDIS_DB = int(os.getenv('REDIS_DB', 0))
-    REDIS_PASSWORD = os.getenv('REDIS_PASSWORD', '')
-    
-    # Cache
-    CACHE_TTL = int(os.getenv('CACHE_TTL', 3600))
-    
-    # Rate Limiting
-    RATE_LIMIT_REQUESTS = int(os.getenv('RATE_LIMIT_REQUESTS', 10))
-    RATE_LIMIT_PERIOD = int(os.getenv('RATE_LIMIT_PERIOD', 60))
+    # Vercel
+    VERCEL_ENV = os.getenv('VERCEL_ENV', 'development')
     
     # Logging
     LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
@@ -39,6 +33,10 @@ class Config:
         """Validate required configuration."""
         if not cls.TELEGRAM_BOT_TOKEN:
             raise ValueError('TELEGRAM_BOT_TOKEN is required')
+        if not cls.OPENAI_API_KEY:
+            raise ValueError('OPENAI_API_KEY is required')
+        if not cls.OPENAI_ASSISTANT_ID:
+            raise ValueError('OPENAI_ASSISTANT_ID is required')
         if not cls.DADATA_API_KEY:
             raise ValueError('DADATA_API_KEY is required')
         return True

@@ -15,10 +15,11 @@ def get_main_menu_keyboard():
 def get_company_menu_keyboard(inn: str):
     """Get company details menu keyboard (iOS-style)."""
     keyboard = [
-        [InlineKeyboardButton("👤 Директора", callback_data=f"directors:{inn}")],
-        [InlineKeyboardButton("👥 Учредители", callback_data=f"founders:{inn}")],
-        [InlineKeyboardButton("📍 Адреса", callback_data=f"addresses:{inn}")],
-        [InlineKeyboardButton("📊 ОКВЭД", callback_data=f"okved:{inn}")],
+        [InlineKeyboardButton("📊 Краткий отчёт", callback_data=f"brief:{inn}")],
+        [InlineKeyboardButton("💰 Финансы", callback_data=f"finances:{inn}")],
+        [InlineKeyboardButton("📋 Реквизиты", callback_data=f"requisites:{inn}")],
+        [InlineKeyboardButton("📍 Адрес", callback_data=f"address:{inn}")],
+        [InlineKeyboardButton("📚 История", callback_data=f"history:{inn}")],
         [InlineKeyboardButton("⚖️ Судебные дела", callback_data=f"court:{inn}")],
         [InlineKeyboardButton("🏛 Госзакупки", callback_data=f"procurement:{inn}")],
         [InlineKeyboardButton("📄 Экспорт PDF", callback_data=f"export_menu:{inn}")],
