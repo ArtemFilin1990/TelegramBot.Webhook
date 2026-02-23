@@ -6,8 +6,10 @@ from telegram.ext import ContextTypes, ConversationHandler
 from bot.services.dadata import dadata_service
 from bot.utils.keyboards import get_company_menu_keyboard, get_main_menu_keyboard
 from bot.utils.formatters import format_company_info
+from db import create_pool, init_db, log_request
 
 logger = logging.getLogger(__name__)
+db_pool = None
 
 # Conversation states
 AWAITING_INN, AWAITING_OGRN = range(2)
@@ -61,11 +63,23 @@ async def handle_inn_input(update: Update, context: ContextTypes.DEFAULT_TYPE):
     loading_msg = await update.message.reply_text("⏳ Поиск информации...")
     
     # Search company
+       global db_pool
+    if db_pool is None:
+        db_pool = await create_pool()
+        await init_db(db_pool)
+    await log_request(db_pool, inn)
+
     company_data = dadata_service.find_by_inn(inn)
     
     if not company_data:
         await loading_msg.edit_text(
             "❌ Компания с таким ИНН не найдена.\n\n"
+   #  # gobal db_pool
+    i###f db_pool is None:
+     #   db_pool = await create_pool()
+     #   await init_db(db_pool)
+   # a#wait log_request(db_pool, inn)
+
             "Попробуйте другой ИНН:",
             parse_mode='HTML'
         )
