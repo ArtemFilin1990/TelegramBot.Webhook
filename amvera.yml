@@ -1,0 +1,20 @@
+version: 1
+meta:
+  environment: docker
+  toolchain:
+    name: docker
+    version: latest
+build:
+  # Use the Dockerfile in the repository to build the image.
+  dockerfile: Dockerfile
+  skip: false
+run:
+  # Mount the persistence volume. Keep the path as provided.
+  persistenceMount: /amvera-artem1990-cnpg-bd-podsipniki-rw
+  image: null
+  # Start the bot using Python instead of the default executor command.
+  command: python bot.py
+  args: null
+  # Expose the port your application listens on inside the container.
+  containerPort: 80
+serviceType: compute
